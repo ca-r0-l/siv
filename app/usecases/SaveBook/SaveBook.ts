@@ -1,10 +1,7 @@
 import { BookRepository } from "./../../repositories/BookRepository";
-import { SaveBookDTO } from "./SaveBookDTO";
-import { Book } from "../../entities/Book";
 import { AuthorRepository } from "../../repositories/AuthorRepository";
 import { GenreRepository } from "../../repositories/GenreRepository";
-import { Author } from "../../entities/Author";
-import { Genre } from "../../entities/Genre";
+import { Book } from "../../entities/Book";
 
 export class SaveBook {
 
@@ -14,27 +11,20 @@ export class SaveBook {
         private genreRepository: GenreRepository,
     ) { }
 
-    async execute(book: SaveBookDTO) {
+    async execute(book: Book) {
         const bookAlreadyExists = await this.bookRepository.findByName(book.name);
         
         if (bookAlreadyExists) {
             throw new Error("Book already exists.");
         }
         
-        const genre = await this.genreRepository.findById(book.genre);
-        const author = await this.authorRepository.findById(book.author);
-
-        const bookToSave: Book = new Book({
+        await this.bookRepository.save({
+            id: book.id,
             name: book.name,
             price: book.price,
             qtyPages: book.qtyPages,
-            author: new Author({
-                name: author.name
-            }, author.id),
-            genre: new Genre({
-                name: genre.name
-            }, genre.id),
-        })
-        await this.bookRepository.save(bookToSave);
+            author: book.author.id,
+            genre: book.genre.id,
+        });
     }
 }

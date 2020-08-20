@@ -1,0 +1,6 @@
+const path = require("path");
+
+module.exports = {
+    config: path.resolve(__dirname, "app", "repositories", "implementation", "mysql", "database.ts"),
+    "migrations-path": path.resolve(__dirname, "app", "repositories", "implementation", "mysql", "migrations")
+}

@@ -17,7 +17,6 @@ class Book {
             this.id = uuidv4();
         }
     }
-
 }
 
 export { Book };

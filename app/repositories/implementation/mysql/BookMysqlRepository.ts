@@ -1,18 +1,23 @@
 import { BookRepository } from "../../BookRepository";
 import { Book } from "../../../entities/Book";
+import { Book as BookModel } from "./models/Book";
+import { SaveBookDTO } from "../../../usecases/SaveBook/SaveBookDTO";
 
 export class BookMysqlRepository implements BookRepository {
-    findAll(): Promise<Book[]> {
-        throw new Error("Method not implemented.");
-    }
-    save(book: Book): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    findById(id: string): Promise<Book> {
-        throw new Error("Method not implemented.");
-    }
-    findByName(name: string): Promise<Book> {
+
+    async findAll(): Promise<Book[]> {
         throw new Error("Method not implemented.");
     }
 
+    async save(book: SaveBookDTO): Promise<void> {
+        await BookModel.create(book);
+    }
+
+    async findById(id: string): Promise<Book> {
+        throw new Error("Method not implemented.");
+    }
+
+    async findByName(name: string): Promise<Book | null> {
+        return await null;
+    }
 }

@@ -1,5 +1,7 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize(process.env.DATABASE || "");
+const configs = require("../mysql/database");
+
+const sequelize = new Sequelize(configs);
 
 export { sequelize };
